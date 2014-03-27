@@ -1,0 +1,26 @@
+DESCRIPTION="TopGit - A different patch queue manager"
+HOMEPAGE="https://github.com/greenrd/topgit"
+
+SRC_URI="https://github.com/greenrd/${PN}/archive/${PN}-${PV}.tar.gz"
+SRC_DIR="${PN}-${P}"
+
+PKG_COMPTYPES="bin doc lic"
+PKG_CONTENTS[0]="bin
+                 libexec"
+PKG_CONTENTS[1]="share/doc
+                 --exclude share/doc/${PN}/${PV}/COPYING
+                 share/${PN}"
+PKG_CONTENTS[2]="share/doc/${PN}/${PV}/COPYING"
+
+src_compile() {
+  # Mirror the source into the build directory.
+  lndirs
+
+  cd ${B}
+  mgwmake prefix=/mingw
+}
+
+src_install() {
+  cd ${B}
+  mgwinstall
+}
